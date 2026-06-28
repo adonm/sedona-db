@@ -1,0 +1,58 @@
+# Fork-only: attach an already-built sedonadb wheel to a tagged prerelease so
+# downstream projects (e.g. gannet) can pip-install the fix without building
+# from source. Not intended for apache/sedona-db.
+#
+# Reuses a wheel built by python-wheels.yml (no rebuild): downloads the
+# linux-x86_64 artifact from the given run, extracts the cp314 manylinux wheel,
+# and attaches it to the release for the given tag.
+name: attach-release-wheel
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'python-wheels run id that built the wheel'
+        required: true
+      tag:
+        description: 'Release tag to create / attach the wheel to'
+        required: true
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  attach:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download linux-x86_64 wheel artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: release-wheels-linux-x86_64
+          path: wheels
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pick the cp314 manylinux x86_64 wheel
+        id: pick
+        run: |
+          set -eu
+          mkdir -p out
+          wheel=$(ls wheels/ | grep -E 'cp314.*manylinux.*x86_64\.whl$' | head -1)
+          [ -n "$wheel" ] || { echo "no cp314 manylinux x86_64 wheel found"; ls -la wheels/; exit 1; }
+          cp "wheels/$wheel" out/
+          echo "wheel=$(basename "$wheel")" >> "$GITHUB_OUTPUT"
+          ls -la out/
+
+      - name: Attach wheel to release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.tag }}
+          name: ${{ inputs.tag }}
+          prerelease: true
+          files: out/*.whl
+          body: |
+            Fork prerelease carrying the `aws.allow_http` / AWS read-option allowlist
+            fix (apache/sedona-db#1013). Wheel: `${{ steps.pick.outputs.wheel }}`, built
+            by `python-wheels.yml` run ${{ inputs.run_id }}. Not an official Apache
+            Sedona release.
