@@ -291,6 +291,8 @@ impl TableProvider for SingleObjectExternalTable {
                     extensions: None,
                     statistics: None,
                     metadata_size_hint: None,
+                    // DF 53 added `ordering` to PartitionedFile; none known here.
+                    ordering: None,
                 }])
             })
             .collect();

@@ -234,17 +234,17 @@ impl TableProvider for RandomGeometryProvider {
 struct RandomGeometryExec {
     builder: RandomPartitionedDataBuilder,
     last_partition_rows: usize,
-    properties: PlanProperties,
+    properties: Arc<PlanProperties>,
 }
 
 impl RandomGeometryExec {
     pub fn new(builder: RandomPartitionedDataBuilder, last_partition_rows: usize) -> Self {
-        let properties = PlanProperties::new(
+        let properties = Arc::new(PlanProperties::new(
             EquivalenceProperties::new(builder.schema().clone()),
             Partitioning::UnknownPartitioning(builder.num_partitions),
             EmissionType::Incremental,
             Boundedness::Bounded,
-        );
+        ));
 
         Self {
             builder,
@@ -277,7 +277,7 @@ impl ExecutionPlan for RandomGeometryExec {
         self.builder.schema()
     }
 
-    fn properties(&self) -> &PlanProperties {
+    fn properties(&self) -> &Arc<PlanProperties> {
         &self.properties
     }
 

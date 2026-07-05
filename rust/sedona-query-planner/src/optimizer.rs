@@ -408,6 +408,9 @@ impl OptimizerRule for MergeSpatialFilterIntoJoin {
             JoinType::Inner,
             *join_constraint,
             *null_equality,
+            // DF 53 added a `null_aware: bool` parameter; preserve the prior
+            // (non-null-aware) semantics of this rewrite.
+            false,
         )?;
 
         Ok(Transformed::yes(LogicalPlan::Join(rewritten_plan)))

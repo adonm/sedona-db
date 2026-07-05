@@ -165,7 +165,7 @@ impl Iterator for RowLimitedIterator {
 struct RecordBatchReaderExec {
     reader: Mutex<Option<Box<dyn RecordBatchReader + Send>>>,
     schema: SchemaRef,
-    properties: PlanProperties,
+    properties: Arc<PlanProperties>,
     limit: Option<usize>,
     projection: Option<Vec<usize>>,
 }
@@ -189,12 +189,12 @@ impl RecordBatchReaderExec {
         } else {
             full_schema
         };
-        let properties = PlanProperties::new(
+        let properties = Arc::new(PlanProperties::new(
             EquivalenceProperties::new(schema.clone()),
             Partitioning::UnknownPartitioning(1),
             EmissionType::Incremental,
             Boundedness::Bounded,
-        );
+        ));
 
         Ok(Self {
             reader: Mutex::new(Some(reader)),
@@ -237,7 +237,7 @@ impl ExecutionPlan for RecordBatchReaderExec {
         self.schema.clone()
     }
 
-    fn properties(&self) -> &PlanProperties {
+    fn properties(&self) -> &Arc<PlanProperties> {
         &self.properties
     }
 
