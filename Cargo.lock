@@ -4859,6 +4859,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "proj-core"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "da3c8a5c6ef8439ebda96ac6c21390c3990fb5a5f46ed137bcbdcc90d0622808"
+dependencies = [
+ "geo-types",
+ "rayon",
+ "rustix",
+ "smallvec",
+ "thiserror 2.0.18",
+]
+
+[[package]]
 name = "proj-sys"
 version = "0.26.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4870,6 +4883,18 @@ dependencies = [
  "link-cplusplus",
  "pkg-config",
  "tar",
+]
+
+[[package]]
+name = "proj-wkt"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8e40042c4904daeac3138df0c80709eb50ebd967b7dfb8beee395b87bad86be5"
+dependencies = [
+ "proj-core",
+ "serde_json",
+ "smallvec",
+ "thiserror 2.0.18",
 ]
 
 [[package]]
@@ -6090,7 +6115,9 @@ dependencies = [
  "geo-traits",
  "geo-types",
  "libloading 0.9.0",
+ "proj-core",
  "proj-sys",
+ "proj-wkt",
  "rstest",
  "sedona-common",
  "sedona-expr",

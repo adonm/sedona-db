@@ -23,3 +23,4 @@ pub mod register;
 pub mod sd_order_lnglat;
 mod st_transform;
 pub mod transform;
+pub mod rust_engine;

@@ -37,7 +37,7 @@ use std::iter::zip;
 use std::sync::Arc;
 use wkb::reader::Wkb;
 
-use crate::transform::with_global_proj_engine;
+use crate::rust_engine::with_global_engine;
 
 /// ST_Transform() implementation using the proj crate
 pub fn st_transform_impl() -> ScalarKernelRef {
@@ -164,7 +164,7 @@ impl SedonaScalarKernel for STTransform {
                 let to_crs_opt: Crs = Some(to_crs.clone());
                 validate_crs_for_type(&to_crs_opt, &return_item_type)?;
 
-                with_global_proj_engine(|engine| {
+                with_global_engine(|engine| {
                     let crs_transform = engine
                         .get_transform_crs_to_crs(
                             &from_crs.to_crs_string(),
@@ -209,7 +209,7 @@ impl SedonaScalarKernel for STTransform {
             None
         };
 
-        with_global_proj_engine(|engine| {
+        with_global_engine(|engine| {
             executor.execute_wkb_void(|maybe_wkb| {
                 match (maybe_wkb, crs_to_crs_iter.next().unwrap()) {
                     (Some(wkb), (Some(from_crs_str), Some(to_crs_str))) => {

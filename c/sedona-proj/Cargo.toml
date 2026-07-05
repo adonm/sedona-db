@@ -39,6 +39,7 @@ criterion = { workspace = true}
 [features]
 default = [ "proj-sys" ]
 proj-sys = [ "dep:proj-sys" ]
+proj-rust = [ "dep:proj-wkt", "dep:proj-core" ]
 
 [dependencies]
 libloading = { workspace = true }
@@ -49,6 +50,8 @@ datafusion-common = { workspace = true }
 datafusion-expr = { workspace = true }
 geo-traits = { workspace = true }
 proj-sys = { version = "0.26.0", optional = true }
+proj-wkt = { version = "0.8", optional = true }
+proj-core = { version = "0.8", optional = true }
 sedona-common = { workspace = true }
 sedona-expr = { workspace = true }
 sedona-functions = { workspace = true }

@@ -31,7 +31,7 @@ rust-version.workspace = true
 result_large_err = "allow"
 
 [features]
-default = ["aws", "azure", "gcp", "http", "geo", "geos", "tg", "spatial-join"]
+default = ["aws", "azure", "gcp", "http", "geo", "geos", "tg", "spatial-join", "proj-rust"]
 aws = ["dep:aws-config", "dep:aws-credential-types", "object_store/aws"]
 azure = ["object_store/azure"]
 gcp = ["object_store/gcp"]
@@ -41,6 +41,7 @@ tg = ["dep:sedona-tg"]
 http = ["object_store/http"]
 pointcloud = ["dep:sedona-pointcloud"]
 proj = ["sedona-proj/proj-sys"]
+proj-rust = ["sedona-proj/proj-rust"]
 gdal = ["sedona-gdal/gdal-sys"]
 # Enable bindgen for GDAL versions without pre-built bindings (e.g., GDAL 3.13+).
 bindgen = ["sedona-gdal/bindgen"]
