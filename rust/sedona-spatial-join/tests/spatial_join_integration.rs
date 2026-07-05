@@ -202,10 +202,6 @@ impl StatsOverrideTableProvider {
 
 #[async_trait]
 impl TableProvider for StatsOverrideTableProvider {
-    fn as_any(&self) -> &dyn Any {
-        self
-    }
-
     fn schema(&self) -> SchemaRef {
         self.inner.schema()
     }
@@ -364,10 +360,6 @@ async fn assert_build_side_from_stats(
 impl ExecutionPlan for StatsOverrideExec {
     fn name(&self) -> &str {
         "StatsOverrideExec"
-    }
-
-    fn as_any(&self) -> &dyn Any {
-        self
     }
 
     fn properties(&self) -> &PlanProperties {
@@ -1243,8 +1235,7 @@ fn extract_geoms_and_ids(partitions: &[Vec<RecordBatch>]) -> Vec<(i32, geo::Geom
             let id_idx = batch.schema().index_of("id").expect("Id column not found");
             let ids = batch
                 .column(id_idx)
-                .as_any()
-                .downcast_ref::<arrow_array::Int32Array>()
+                .as_any().downcast_ref::<arrow_array::Int32Array>()
                 .expect("Column 'id' should be Int32");
 
             let geom_idx = batch
@@ -1388,13 +1379,11 @@ async fn test_knn_join_correctness(
         let combined_batch = arrow::compute::concat_batches(&batches.schema(), &[batches])?;
         let l_ids = combined_batch
             .column(0)
-            .as_any()
-            .downcast_ref::<arrow_array::Int32Array>()
+            .as_any().downcast_ref::<arrow_array::Int32Array>()
             .unwrap();
         let r_ids = combined_batch
             .column(1)
-            .as_any()
-            .downcast_ref::<arrow_array::Int32Array>()
+            .as_any().downcast_ref::<arrow_array::Int32Array>()
             .unwrap();
 
         for i in 0..combined_batch.num_rows() {
@@ -1461,13 +1450,11 @@ async fn test_knn_join_with_filter_correctness(
         let combined_batch = arrow::compute::concat_batches(&batches.schema(), &[batches])?;
         let l_ids = combined_batch
             .column(0)
-            .as_any()
-            .downcast_ref::<arrow_array::Int32Array>()
+            .as_any().downcast_ref::<arrow_array::Int32Array>()
             .unwrap();
         let r_ids = combined_batch
             .column(1)
-            .as_any()
-            .downcast_ref::<arrow_array::Int32Array>()
+            .as_any().downcast_ref::<arrow_array::Int32Array>()
             .unwrap();
 
         for i in 0..combined_batch.num_rows() {
@@ -1649,13 +1636,11 @@ async fn test_knn_join_include_tie_breakers(
 
     let l_ids = combined
         .column(0)
-        .as_any()
-        .downcast_ref::<arrow_array::Int32Array>()
+        .as_any().downcast_ref::<arrow_array::Int32Array>()
         .unwrap();
     let r_ids = combined
         .column(1)
-        .as_any()
-        .downcast_ref::<arrow_array::Int32Array>()
+        .as_any().downcast_ref::<arrow_array::Int32Array>()
         .unwrap();
 
     let mut per_left: std::collections::HashMap<i32, Vec<i32>> = std::collections::HashMap::new();
@@ -1699,13 +1684,11 @@ async fn test_knn_join_include_tie_breakers(
     let combined = arrow::compute::concat_batches(&out_with_ties.schema(), &[out_with_ties])?;
     let l_ids = combined
         .column(0)
-        .as_any()
-        .downcast_ref::<arrow_array::Int32Array>()
+        .as_any().downcast_ref::<arrow_array::Int32Array>()
         .unwrap();
     let r_ids = combined
         .column(1)
-        .as_any()
-        .downcast_ref::<arrow_array::Int32Array>()
+        .as_any().downcast_ref::<arrow_array::Int32Array>()
         .unwrap();
 
     let mut per_left: std::collections::HashMap<i32, Vec<i32>> = std::collections::HashMap::new();

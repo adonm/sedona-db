@@ -117,7 +117,6 @@ fn wrap_async_udf(expr: Expr, schema: &Arc<DFSchema>) -> Result<Transformed<Expr
     let is_async = func_call
         .func
         .inner()
-        .as_any()
         .downcast_ref::<AsyncScalarUDF>()
         .is_some();
 
@@ -192,10 +191,6 @@ mod tests {
     }
 
     impl datafusion_expr::ScalarUDFImpl for FakeAsyncUdf {
-        fn as_any(&self) -> &dyn Any {
-            self
-        }
-
         fn name(&self) -> &str {
             "fake_async"
         }

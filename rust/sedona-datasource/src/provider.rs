@@ -248,10 +248,6 @@ impl SingleObjectExternalTable {
 
 #[async_trait]
 impl TableProvider for SingleObjectExternalTable {
-    fn as_any(&self) -> &dyn Any {
-        self
-    }
-
     fn schema(&self) -> SchemaRef {
         self.schema.clone()
     }
@@ -288,11 +284,14 @@ impl TableProvider for SingleObjectExternalTable {
                     object_meta: synthetic_object_meta(location),
                     partition_values: vec![],
                     range: None,
-                    extensions: None,
+                    extensions: Default::default(),
                     statistics: None,
                     metadata_size_hint: None,
-                    // DF 53 added `ordering` to PartitionedFile; none known here.
+                    // DF 53 added `ordering`; DF 54 added `table_reference` and
+                    // changed `extensions` from Option to the Extensions map.
+                    // None apply to a synthetic scan.
                     ordering: None,
+                    table_reference: None,
                 }])
             })
             .collect();

@@ -75,10 +75,6 @@ impl Debug for RecordBatchReaderProvider {
 
 #[async_trait]
 impl TableProvider for RecordBatchReaderProvider {
-    fn as_any(&self) -> &dyn Any {
-        self
-    }
-
     fn schema(&self) -> SchemaRef {
         self.schema.clone()
     }
@@ -227,10 +223,6 @@ impl DisplayAs for RecordBatchReaderExec {
 impl ExecutionPlan for RecordBatchReaderExec {
     fn name(&self) -> &str {
         "RecordBatchReaderExec"
-    }
-
-    fn as_any(&self) -> &dyn Any {
-        self
     }
 
     fn schema(&self) -> SchemaRef {
@@ -446,8 +438,7 @@ mod test {
             for batch in results.iter() {
                 let id_array = batch
                     .column(0)
-                    .as_any()
-                    .downcast_ref::<arrow_array::Int32Array>()
+                    .as_any().downcast_ref::<arrow_array::Int32Array>()
                     .unwrap();
                 for i in 0..id_array.len() {
                     assert_eq!(id_array.value(i), expected_id);
@@ -490,8 +481,7 @@ mod test {
         assert_eq!(out_batch.schema().field(0).name(), "b");
         let values = out_batch
             .column(0)
-            .as_any()
-            .downcast_ref::<arrow_array::Int32Array>()
+            .as_any().downcast_ref::<arrow_array::Int32Array>()
             .unwrap();
         assert_eq!(values.values(), &[10, 20, 30]);
     }

@@ -1042,8 +1042,7 @@ mod tests {
             for batch in partition {
                 let id_array = batch
                     .column(0)
-                    .as_any()
-                    .downcast_ref::<Int32Array>()
+                    .as_any().downcast_ref::<Int32Array>()
                     .unwrap();
                 for i in 0..id_array.len() {
                     all_ids.push(id_array.value(i));
@@ -1123,26 +1122,22 @@ mod tests {
                 // Compare IDs
                 let ids1 = batch1
                     .column(0)
-                    .as_any()
-                    .downcast_ref::<Int32Array>()
+                    .as_any().downcast_ref::<Int32Array>()
                     .unwrap();
                 let ids2 = batch2
                     .column(0)
-                    .as_any()
-                    .downcast_ref::<Int32Array>()
+                    .as_any().downcast_ref::<Int32Array>()
                     .unwrap();
                 assert_eq!(ids1, ids2);
 
                 // Compare distances
                 let dists1 = batch1
                     .column(1)
-                    .as_any()
-                    .downcast_ref::<Float64Array>()
+                    .as_any().downcast_ref::<Float64Array>()
                     .unwrap();
                 let dists2 = batch2
                     .column(1)
-                    .as_any()
-                    .downcast_ref::<Float64Array>()
+                    .as_any().downcast_ref::<Float64Array>()
                     .unwrap();
                 assert_eq!(dists1, dists2);
             }
@@ -1170,13 +1165,11 @@ mod tests {
         // Data should be different (distances should differ)
         let dists1 = partitions1[0][0]
             .column(1)
-            .as_any()
-            .downcast_ref::<Float64Array>()
+            .as_any().downcast_ref::<Float64Array>()
             .unwrap();
         let dists2 = partitions2[0][0]
             .column(1)
-            .as_any()
-            .downcast_ref::<Float64Array>()
+            .as_any().downcast_ref::<Float64Array>()
             .unwrap();
 
         // At least some distances should be different

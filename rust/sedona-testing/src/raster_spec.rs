@@ -416,8 +416,7 @@ pub fn raster_array<I: IntoIterator<Item = Option<RasterSpec>>>(specs: I) -> Str
 /// `expected` (with `None` for expected-null rows).
 pub fn assert_rasters_equal(actual: &ArrayRef, expected: &[Option<RasterSpec>]) {
     let actual_struct = actual
-        .as_any()
-        .downcast_ref::<StructArray>()
+        .as_any().downcast_ref::<StructArray>()
         .expect("expected a raster StructArray result");
     let expected_struct = raster_array(expected.iter().cloned());
     assert_raster_arrays_equal(
@@ -445,8 +444,7 @@ pub fn assert_raster_scalar_equals(actual: &ScalarValue, expected: &RasterSpec) 
 /// strings. Returns `None` when the row is null.
 pub fn list_utf8_row(result: &ArrayRef, row: usize) -> Option<Vec<String>> {
     let list = result
-        .as_any()
-        .downcast_ref::<ListArray>()
+        .as_any().downcast_ref::<ListArray>()
         .expect("expected a ListArray result");
     if list.is_null(row) {
         return None;
@@ -474,16 +472,14 @@ pub fn list_utf8_row(result: &ArrayRef, row: usize) -> Option<Vec<String>> {
 /// Returns `None` when the row is null.
 pub fn list_i64_row(result: &ArrayRef, row: usize) -> Option<Vec<i64>> {
     let list = result
-        .as_any()
-        .downcast_ref::<ListArray>()
+        .as_any().downcast_ref::<ListArray>()
         .expect("expected a ListArray result");
     if list.is_null(row) {
         return None;
     }
     let values = list.value(row);
     let ints = values
-        .as_any()
-        .downcast_ref::<Int64Array>()
+        .as_any().downcast_ref::<Int64Array>()
         .expect("expected Int64 list items");
     Some((0..ints.len()).map(|i| ints.value(i)).collect())
 }

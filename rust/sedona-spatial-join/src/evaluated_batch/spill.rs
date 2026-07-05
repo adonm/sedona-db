@@ -137,8 +137,7 @@ impl EvaluatedBatchSpillWriter {
             },
             Some(ColumnarValue::Array(array)) => {
                 let float_array = array
-                    .as_any()
-                    .downcast_ref::<arrow::array::Float64Array>()
+                    .as_any().downcast_ref::<arrow::array::Float64Array>()
                     .unwrap();
                 dist_builder.append_array(float_array);
             }
@@ -207,8 +206,7 @@ pub(crate) fn spilled_batch_to_evaluated_batch(
     // Extract the data struct array (column 0) and convert back to the original RecordBatch
     let data_array = record_batch
         .column(SPILL_FIELD_DATA_INDEX)
-        .as_any()
-        .downcast_ref::<StructArray>()
+        .as_any().downcast_ref::<StructArray>()
         .ok_or_else(|| {
             sedona_internal_datafusion_err!("Expected data column to be a StructArray")
         })?;
@@ -235,8 +233,7 @@ pub(crate) fn spilled_batch_to_evaluated_batch(
     // Extract the distance array (column 3) and convert back to ColumnarValue
     let dist_array = record_batch
         .column(SPILL_FIELD_DIST_INDEX)
-        .as_any()
-        .downcast_ref::<Float64Array>()
+        .as_any().downcast_ref::<Float64Array>()
         .ok_or_else(|| {
             sedona_internal_datafusion_err!("Expected dist column to be Float64Array")
         })?;
@@ -272,15 +269,13 @@ pub(crate) fn spilled_batch_to_evaluated_batch(
     // Extract the rect array
     let rect_array = record_batch
         .column(SPILL_FIELD_RECT_INDEX)
-        .as_any()
-        .downcast_ref::<FixedSizeListArray>()
+        .as_any().downcast_ref::<FixedSizeListArray>()
         .ok_or_else(|| {
             sedona_internal_datafusion_err!("Expected rect column to be FixedSizeListArray")
         })?;
     let rect_child_array = rect_array
         .values()
-        .as_any()
-        .downcast_ref::<Float32Array>()
+        .as_any().downcast_ref::<Float32Array>()
         .ok_or_else(|| {
             sedona_internal_datafusion_err!("Expected rect column child to be Float32Array")
         })?;

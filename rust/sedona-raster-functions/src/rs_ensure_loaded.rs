@@ -174,10 +174,6 @@ impl Hash for RsEnsureLoaded {
 }
 
 impl ScalarUDFImpl for RsEnsureLoaded {
-    fn as_any(&self) -> &dyn Any {
-        self
-    }
-
     fn name(&self) -> &str {
         "rs_ensureloaded"
     }
@@ -265,8 +261,7 @@ where
     F: FnMut(Option<&str>) -> Result<Arc<dyn AsyncRasterLoader>>,
 {
     let input_struct = input_array
-        .as_any()
-        .downcast_ref::<StructArray>()
+        .as_any().downcast_ref::<StructArray>()
         .ok_or_else(|| {
             sedona_internal_datafusion_err!(
                 "RS_EnsureLoaded: expected StructArray input, got {:?}",

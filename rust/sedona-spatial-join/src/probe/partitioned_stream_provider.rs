@@ -413,8 +413,7 @@ mod tests {
                 let array = batch
                     .batch
                     .column(0)
-                    .as_any()
-                    .downcast_ref::<Int32Array>()
+                    .as_any().downcast_ref::<Int32Array>()
                     .unwrap();
                 (0..array.len())
                     .map(|idx| array.value(idx))

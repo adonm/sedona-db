@@ -874,13 +874,11 @@ mod tests {
     ) -> StructArray {
         let bands_list = array
             .column(raster_indices::BANDS)
-            .as_any()
-            .downcast_ref::<ListArray>()
+            .as_any().downcast_ref::<ListArray>()
             .unwrap();
         let bands_struct = bands_list
             .values()
-            .as_any()
-            .downcast_ref::<StructArray>()
+            .as_any().downcast_ref::<StructArray>()
             .unwrap();
 
         let mut columns: Vec<ArrayRef> = bands_struct.columns().to_vec();

@@ -177,8 +177,7 @@ mod tests {
         let result = tester.invoke_array(Arc::new(rasters)).unwrap();
 
         let string_array = result
-            .as_any()
-            .downcast_ref::<StringArray>()
+            .as_any().downcast_ref::<StringArray>()
             .expect("Expected StringArray");
 
         // All in-db rasters should return null
@@ -202,8 +201,7 @@ mod tests {
             .unwrap();
 
         let string_array = result
-            .as_any()
-            .downcast_ref::<StringArray>()
+            .as_any().downcast_ref::<StringArray>()
             .expect("Expected StringArray");
 
         // All in-db bands should return null regardless of band index
@@ -250,8 +248,7 @@ mod tests {
             .unwrap();
 
         let string_array = result
-            .as_any()
-            .downcast_ref::<StringArray>()
+            .as_any().downcast_ref::<StringArray>()
             .expect("Expected StringArray");
 
         // Invalid band indices should return null

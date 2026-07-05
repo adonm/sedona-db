@@ -839,8 +839,7 @@ mod tests {
         let result = tester.invoke_array(Arc::new(list_view_array));
         let output_array = result.unwrap();
         let formatted_list_view = output_array
-            .as_any()
-            .downcast_ref::<ListViewArray>()
+            .as_any().downcast_ref::<ListViewArray>()
             .unwrap();
 
         // Check that the list view field type is now UTF8 (formatted from WKB)
@@ -946,8 +945,7 @@ mod tests {
 
         // Verify the geometries were actually formatted to WKT strings
         let formatted_list = geometries_column
-            .as_any()
-            .downcast_ref::<ListArray>()
+            .as_any().downcast_ref::<ListArray>()
             .unwrap();
         let values_array = formatted_list.values();
         if let Some(utf8_array) = values_array.as_any().downcast_ref::<StringArray>() {

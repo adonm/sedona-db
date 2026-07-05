@@ -119,7 +119,7 @@ impl EvaluatedGeometryArrayFactory for GeographyEvaluatedArrayFactory {
                 })
             }
             ColumnarValue::Array(array) => {
-                if let Some(array) = array.as_any().downcast_ref::<Float64Array>() {
+                if let Some(array) = array.downcast_ref::<Float64Array>() {
                     let mut distance_iter = array.iter();
                     try_new_evaluated_array_impl(geometry_array, sedona_type, |bounder| {
                         if let Some(next_distance) = distance_iter

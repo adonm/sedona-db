@@ -283,8 +283,7 @@ mod tests {
         let rasters = generate_test_rasters(3, Some(1)).unwrap();
         let result = tester.invoke_array(Arc::new(rasters)).unwrap();
         let string_array = result
-            .as_any()
-            .downcast_ref::<StringArray>()
+            .as_any().downcast_ref::<StringArray>()
             .expect("Expected StringArray");
 
         assert_eq!(string_array.value(0), "UNSIGNED_16BITS");
@@ -303,8 +302,7 @@ mod tests {
             .invoke_arrays(vec![Arc::new(rasters), Arc::new(band_indices)])
             .unwrap();
         let string_array = result
-            .as_any()
-            .downcast_ref::<StringArray>()
+            .as_any().downcast_ref::<StringArray>()
             .expect("Expected StringArray");
 
         assert_eq!(string_array.value(0), "UNSIGNED_16BITS");
@@ -323,8 +321,7 @@ mod tests {
             .invoke_arrays(vec![Arc::new(rasters), Arc::new(band_indices)])
             .unwrap();
         let string_array = result
-            .as_any()
-            .downcast_ref::<StringArray>()
+            .as_any().downcast_ref::<StringArray>()
             .expect("Expected StringArray");
 
         assert_eq!(string_array.value(0), "UNSIGNED_16BITS");
@@ -393,8 +390,7 @@ mod tests {
         let spec = RasterSpec::d2(2, 2).band_values(&[1u8, 2, 3, 4]);
         let result = tester.invoke_raster_array(vec![Some(spec)]).unwrap();
         let float_array = result
-            .as_any()
-            .downcast_ref::<Float64Array>()
+            .as_any().downcast_ref::<Float64Array>()
             .expect("Expected Float64Array");
         assert!(float_array.is_null(0));
     }

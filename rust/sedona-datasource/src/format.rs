@@ -78,10 +78,6 @@ impl FileFormatFactory for ExternalFormatFactory {
             spec: self.spec.clone(),
         })
     }
-
-    fn as_any(&self) -> &dyn std::any::Any {
-        self
-    }
 }
 
 impl GetExt for ExternalFormatFactory {
@@ -103,10 +99,6 @@ impl ExternalFileFormat {
 
 #[async_trait]
 impl FileFormat for ExternalFileFormat {
-    fn as_any(&self) -> &dyn Any {
-        self
-    }
-
     fn get_ext(&self) -> String {
         self.spec.extension().to_string()
     }
@@ -311,10 +303,6 @@ impl FileSource for ExternalFileSource {
 
     fn projection(&self) -> Option<&ProjectionExprs> {
         self.split_projection.as_ref().map(|sp| &sp.source)
-    }
-
-    fn as_any(&self) -> &dyn Any {
-        self
     }
 
     fn with_batch_size(&self, batch_size: usize) -> Arc<dyn FileSource> {
@@ -827,7 +815,6 @@ mod test {
         // without trying to list inside it.
         let path_col = batches[0]
             .column(0)
-            .as_any()
             .downcast_ref::<StringArray>()
             .unwrap();
         assert!(!path_col.value(0).is_empty());

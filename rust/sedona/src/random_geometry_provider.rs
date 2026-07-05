@@ -185,10 +185,6 @@ impl RandomGeometryProvider {
 
 #[async_trait]
 impl TableProvider for RandomGeometryProvider {
-    fn as_any(&self) -> &dyn Any {
-        self
-    }
-
     fn schema(&self) -> SchemaRef {
         self.builder.schema()
     }
@@ -267,10 +263,6 @@ impl DisplayAs for RandomGeometryExec {
 impl ExecutionPlan for RandomGeometryExec {
     fn name(&self) -> &str {
         "RandomGeometryExec"
-    }
-
-    fn as_any(&self) -> &dyn Any {
-        self
     }
 
     fn schema(&self) -> SchemaRef {

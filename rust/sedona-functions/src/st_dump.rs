@@ -388,8 +388,7 @@ mod tests {
     ) {
         let list_array = result
             .as_ref()
-            .as_any()
-            .downcast_ref::<ListArray>()
+            .as_any().downcast_ref::<ListArray>()
             .expect("result should be a ListArray");
         assert!(
             !list_array.is_null(row),
@@ -398,24 +397,21 @@ mod tests {
         let dumped = list_array.value(row);
         let dumped = dumped
             .as_ref()
-            .as_any()
-            .downcast_ref::<StructArray>()
+            .as_any().downcast_ref::<StructArray>()
             .expect("list elements should be StructArray");
         assert_eq!(dumped.len(), expected.len());
 
         let path_array = dumped
             .column(0)
             .as_ref()
-            .as_any()
-            .downcast_ref::<ListArray>()
+            .as_any().downcast_ref::<ListArray>()
             .expect("path should be a ListArray");
         assert_eq!(path_array.len(), expected.len());
         for (i, (expected_path, _)) in expected.iter().enumerate() {
             let path_array_value = path_array.value(i);
             let path_values = path_array_value
                 .as_ref()
-                .as_any()
-                .downcast_ref::<UInt32Array>()
+                .as_any().downcast_ref::<UInt32Array>()
                 .expect("path values should be UInt32Array");
             assert_eq!(
                 path_values.len(),
@@ -440,8 +436,7 @@ mod tests {
     fn assert_dump_row_null(result: &ArrayRef, row: usize) {
         let list_array = result
             .as_ref()
-            .as_any()
-            .downcast_ref::<ListArray>()
+            .as_any().downcast_ref::<ListArray>()
             .expect("result should be a ListArray");
         assert!(list_array.is_null(row), "row {row} should be null");
     }

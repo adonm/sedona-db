@@ -2086,18 +2086,15 @@ mod tests {
         let array = builder.finish().unwrap();
         let bands_list = array
             .column(sedona_schema::raster::raster_indices::BANDS)
-            .as_any()
-            .downcast_ref::<ListArray>()
+            .as_any().downcast_ref::<ListArray>()
             .unwrap();
         let bands_struct = bands_list
             .values()
-            .as_any()
-            .downcast_ref::<StructArray>()
+            .as_any().downcast_ref::<StructArray>()
             .unwrap();
         let view_list = bands_struct
             .column(sedona_schema::raster::band_indices::VIEW)
-            .as_any()
-            .downcast_ref::<ListArray>()
+            .as_any().downcast_ref::<ListArray>()
             .unwrap();
         assert_eq!(view_list.len(), 1);
         assert!(
@@ -2185,24 +2182,20 @@ mod tests {
         assert_eq!(batches.len(), 1);
         let restored_struct = batches[0]
             .column(0)
-            .as_any()
-            .downcast_ref::<StructArray>()
+            .as_any().downcast_ref::<StructArray>()
             .unwrap();
 
         let bands_list = restored_struct
             .column(sedona_schema::raster::raster_indices::BANDS)
-            .as_any()
-            .downcast_ref::<ListArray>()
+            .as_any().downcast_ref::<ListArray>()
             .unwrap();
         let bands_struct = bands_list
             .values()
-            .as_any()
-            .downcast_ref::<StructArray>()
+            .as_any().downcast_ref::<StructArray>()
             .unwrap();
         let view_list = bands_struct
             .column(sedona_schema::raster::band_indices::VIEW)
-            .as_any()
-            .downcast_ref::<ListArray>()
+            .as_any().downcast_ref::<ListArray>()
             .unwrap();
         assert_eq!(view_list.len(), 1);
         assert!(
@@ -2220,16 +2213,13 @@ mod tests {
     fn output_band_data(arr: &StructArray) -> &BinaryViewArray {
         use sedona_schema::raster::{band_indices, raster_indices};
         arr.column(raster_indices::BANDS)
-            .as_any()
-            .downcast_ref::<ListArray>()
+            .as_any().downcast_ref::<ListArray>()
             .unwrap()
             .values()
-            .as_any()
-            .downcast_ref::<StructArray>()
+            .as_any().downcast_ref::<StructArray>()
             .unwrap()
             .column(band_indices::DATA)
-            .as_any()
-            .downcast_ref::<BinaryViewArray>()
+            .as_any().downcast_ref::<BinaryViewArray>()
             .unwrap()
     }
 

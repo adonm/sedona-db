@@ -430,7 +430,7 @@ pub struct AwsOptions {
 }
 
 impl ExtensionOptions for AwsOptions {
-    fn as_any(&self) -> &dyn Any {
+    fn as_any(&self) -> &dyn std::any::Any {
         self
     }
 
@@ -524,7 +524,7 @@ pub struct GcpOptions {
 }
 
 impl ExtensionOptions for GcpOptions {
-    fn as_any(&self) -> &dyn Any {
+    fn as_any(&self) -> &dyn std::any::Any {
         self
     }
 
@@ -617,7 +617,7 @@ pub struct AzureOptions {
 
 #[cfg(feature = "azure")]
 impl ExtensionOptions for AzureOptions {
-    fn as_any(&self) -> &dyn Any {
+    fn as_any(&self) -> &dyn std::any::Any {
         self
     }
 

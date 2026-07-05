@@ -293,8 +293,7 @@ mod tests {
             .unwrap();
 
         let float_array = result
-            .as_any()
-            .downcast_ref::<arrow_array::Float64Array>()
+            .as_any().downcast_ref::<arrow_array::Float64Array>()
             .expect("Expected Float64Array");
 
         // Check each value with approximate comparison due to floating point

@@ -527,8 +527,7 @@ mod tests {
             let array = batch
                 .batch
                 .column(0)
-                .as_any()
-                .downcast_ref::<Int32Array>()
+                .as_any().downcast_ref::<Int32Array>()
                 .unwrap();
             for i in 0..array.len() {
                 ids.push(array.value(i));

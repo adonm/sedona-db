@@ -60,7 +60,8 @@ impl Hash for MetadataPreservingColumn {
 
 impl PartialEq for MetadataPreservingColumn {
     fn eq(&self, other: &Self) -> bool {
-        self.inner.as_ref().dyn_eq(other.inner.as_any()) && self.field == other.field
+        self.inner.as_ref().dyn_eq(other.inner.as_ref() as &dyn Any)
+            && self.field == other.field
     }
 }
 
@@ -89,10 +90,6 @@ impl Display for MetadataPreservingColumn {
 }
 
 impl PhysicalExpr for MetadataPreservingColumn {
-    fn as_any(&self) -> &dyn Any {
-        self
-    }
-
     fn data_type(&self, _input_schema: &Schema) -> Result<DataType> {
         // Return data type from our stored field instead of looking up from input schema
         // This avoids index mismatch issues when the schema differs from the original

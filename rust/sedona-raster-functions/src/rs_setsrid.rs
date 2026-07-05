@@ -167,8 +167,7 @@ fn replace_raster_crs(
     match raster_arg {
         ColumnarValue::Array(raster_array) => {
             let raster_struct = raster_array
-                .as_any()
-                .downcast_ref::<StructArray>()
+                .as_any().downcast_ref::<StructArray>()
                 .ok_or_else(|| {
                     sedona_internal_datafusion_err!("Expected StructArray for raster data")
                 })?;

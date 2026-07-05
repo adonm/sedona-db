@@ -94,10 +94,6 @@ impl Hash for RestoreMetadata {
 }
 
 impl ScalarUDFImpl for RestoreMetadata {
-    fn as_any(&self) -> &dyn Any {
-        self
-    }
-
     fn name(&self) -> &str {
         RESTORE_METADATA_NAME
     }

@@ -85,19 +85,19 @@ bytes = "1.11"
 chrono = { version = "0.4.41", default-features = false }
 comfy-table = { version = "7.2" }
 criterion = { version = "0.8", features = ["html_reports"] }
-datafusion = { version = "53", default-features = false }
-datafusion-catalog = { version = "53" }
-datafusion-common = { version = "53", default-features = false }
-datafusion-common-runtime = { version = "53", default-features = false }
-datafusion-datasource = { version = "53", default-features = false }
-datafusion-datasource-parquet = { version = "53" }
-datafusion-execution = { version = "53", default-features = false }
-datafusion-expr = { version = "53" }
-datafusion-ffi = {  version = "53" }
-datafusion-optimizer = { version = "53" }
-datafusion-physical-expr = { version = "53" }
-datafusion-physical-plan = { version = "53" }
-datafusion-pruning = { version = "53" }
+datafusion = { version = "54", default-features = false }
+datafusion-catalog = { version = "54" }
+datafusion-common = { version = "54", default-features = false }
+datafusion-common-runtime = { version = "54", default-features = false }
+datafusion-datasource = { version = "54", default-features = false }
+datafusion-datasource-parquet = { version = "54" }
+datafusion-execution = { version = "54", default-features = false }
+datafusion-expr = { version = "54" }
+datafusion-ffi = {  version = "54" }
+datafusion-optimizer = { version = "54" }
+datafusion-physical-expr = { version = "54" }
+datafusion-physical-plan = { version = "54" }
+datafusion-pruning = { version = "54" }
 dirs = "6.0.0"
 env_logger = "0.11"
 fastrand = "2.4"

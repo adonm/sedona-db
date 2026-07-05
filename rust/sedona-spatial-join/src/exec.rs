@@ -363,11 +363,6 @@ impl ExecutionPlan for SpatialJoinExec {
     fn name(&self) -> &str {
         "SpatialJoinExec"
     }
-
-    fn as_any(&self) -> &dyn std::any::Any {
-        self
-    }
-
     fn properties(&self) -> &Arc<PlanProperties> {
         &self.cache
     }
@@ -660,8 +655,7 @@ mod exec_transform_tests {
         };
 
         let new_exec = new_plan
-            .as_any()
-            .downcast_ref::<SpatialJoinExec>()
+            .as_any().downcast_ref::<SpatialJoinExec>()
             .expect("expected SpatialJoinExec");
 
         // Projection is pushed down into children; join has no embedded projection.
@@ -677,13 +671,11 @@ mod exec_transform_tests {
         };
         let new_left = new_on
             .left
-            .as_any()
-            .downcast_ref::<Column>()
+            .as_any().downcast_ref::<Column>()
             .expect("expected Column expr");
         let new_right = new_on
             .right
-            .as_any()
-            .downcast_ref::<Column>()
+            .as_any().downcast_ref::<Column>()
             .expect("expected Column expr");
         assert_eq!(new_left.index(), 0);
         assert_eq!(new_right.index(), 0);
@@ -733,8 +725,7 @@ mod exec_transform_tests {
             return sedona_internal_err!("expected try_swapping_with_projection to succeed");
         };
         let new_exec = new_plan
-            .as_any()
-            .downcast_ref::<SpatialJoinExec>()
+            .as_any().downcast_ref::<SpatialJoinExec>()
             .expect("expected SpatialJoinExec");
 
         let SpatialPredicate::KNearestNeighbors(new_on) = &new_exec.on else {
@@ -744,13 +735,11 @@ mod exec_transform_tests {
         // Both sides should be remapped to 0 in their respective projected children.
         let new_probe = new_on
             .left
-            .as_any()
-            .downcast_ref::<Column>()
+            .as_any().downcast_ref::<Column>()
             .expect("expected Column expr");
         let new_build = new_on
             .right
-            .as_any()
-            .downcast_ref::<Column>()
+            .as_any().downcast_ref::<Column>()
             .expect("expected Column expr");
         assert_eq!(new_probe.index(), 0);
         assert_eq!(new_build.index(), 0);
@@ -793,13 +782,11 @@ mod exec_transform_tests {
         assert_eq!(swapped_exec.join_type, JoinType::Right);
         let new_left = rel
             .left
-            .as_any()
-            .downcast_ref::<Column>()
+            .as_any().downcast_ref::<Column>()
             .expect("expected Column expr");
         let new_right = rel
             .right
-            .as_any()
-            .downcast_ref::<Column>()
+            .as_any().downcast_ref::<Column>()
             .expect("expected Column expr");
         assert_eq!(new_left.name(), "rgeom");
         assert_eq!(new_left.index(), 1);
@@ -846,13 +833,11 @@ mod exec_transform_tests {
         // Expressions are not swapped (remain pointing at original table schemas).
         let probe_expr = knn
             .left
-            .as_any()
-            .downcast_ref::<Column>()
+            .as_any().downcast_ref::<Column>()
             .expect("expected Column expr");
         let build_expr = knn
             .right
-            .as_any()
-            .downcast_ref::<Column>()
+            .as_any().downcast_ref::<Column>()
             .expect("expected Column expr");
         assert_eq!(probe_expr.name(), "rgeom");
         assert_eq!(probe_expr.index(), 1);

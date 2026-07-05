@@ -1970,13 +1970,11 @@ mod test {
         let mut actual_results: Vec<(u64, u64)> = Vec::new();
         let query_id_array = batch
             .column(0)
-            .as_any()
-            .downcast_ref::<UInt64Array>()
+            .as_any().downcast_ref::<UInt64Array>()
             .unwrap();
         let object_id_array = batch
             .column(1)
-            .as_any()
-            .downcast_ref::<UInt64Array>()
+            .as_any().downcast_ref::<UInt64Array>()
             .unwrap();
         for i in 0..batch.num_rows() {
             actual_results.push((query_id_array.value(i), object_id_array.value(i)));

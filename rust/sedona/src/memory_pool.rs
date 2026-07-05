@@ -79,7 +79,21 @@ impl SedonaFairSpillPool {
     }
 }
 
+impl std::fmt::Display for SedonaFairSpillPool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "SedonaFairSpillPool(size={}, reserve_ratio={})",
+            self.pool_size, self.unspillable_reserve_ratio
+        )
+    }
+}
+
 impl MemoryPool for SedonaFairSpillPool {
+    fn name(&self) -> &str {
+        "SedonaFairSpillPool"
+    }
+
     fn register(&self, consumer: &MemoryConsumer) {
         if consumer.can_spill() {
             self.state.lock().num_spill += 1;

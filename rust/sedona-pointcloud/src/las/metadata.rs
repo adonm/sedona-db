@@ -60,10 +60,6 @@ pub struct LasMetadata {
 }
 
 impl FileMetadata for LasMetadata {
-    fn as_any(&self) -> &dyn Any {
-        self
-    }
-
     fn memory_size(&self) -> usize {
         std::mem::size_of::<Header>()
             + self
@@ -132,7 +128,6 @@ impl<'a> LasMetadataReader<'a> {
             .and_then(|file_metadata_cache| file_metadata_cache.get(object_meta))
             .and_then(|file_metadata| {
                 file_metadata
-                    .as_any()
                     .downcast_ref::<LasMetadata>()
                     .map(|las_file_metadata| Arc::new(las_file_metadata.to_owned()))
             })

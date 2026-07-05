@@ -252,8 +252,7 @@ impl<'a, 'b> RasterExecutor<'a, 'b> {
                 // Downcast to StructArray (rasters are stored as structs)
                 let raster_struct =
                     array
-                        .as_any()
-                        .downcast_ref::<StructArray>()
+                        .as_any().downcast_ref::<StructArray>()
                         .ok_or_else(|| {
                             sedona_internal_datafusion_err!("Expected StructArray for raster data")
                         })?;
@@ -482,8 +481,7 @@ impl<'a, 'b> RasterExecutor<'a, 'b> {
             ColumnarValue::Array(array) => {
                 let raster_struct =
                     array
-                        .as_any()
-                        .downcast_ref::<StructArray>()
+                        .as_any().downcast_ref::<StructArray>()
                         .ok_or_else(|| {
                             sedona_internal_datafusion_err!("Expected StructArray for raster data")
                         })?;
@@ -739,8 +737,7 @@ mod tests {
 
         let width_array = match &result {
             ColumnarValue::Array(array) => array
-                .as_any()
-                .downcast_ref::<Int64Array>()
+                .as_any().downcast_ref::<Int64Array>()
                 .expect("Expected Int64Array"),
             ColumnarValue::Scalar(_) => panic!("Expected array, got scalar"),
         };

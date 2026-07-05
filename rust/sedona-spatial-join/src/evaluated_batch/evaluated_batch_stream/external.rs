@@ -556,8 +556,7 @@ mod tests {
         let id_array = batch
             .batch
             .column(0)
-            .as_any()
-            .downcast_ref::<Int32Array>()
+            .as_any().downcast_ref::<Int32Array>()
             .unwrap();
         assert_eq!(id_array.value(0), 0);
         assert_eq!(id_array.value(1), 1);
@@ -566,8 +565,7 @@ mod tests {
         let name_array = batch
             .batch
             .column(1)
-            .as_any()
-            .downcast_ref::<StringArray>()
+            .as_any().downcast_ref::<StringArray>()
             .unwrap();
         assert_eq!(name_array.value(0), "Alice");
         assert_eq!(name_array.value(1), "Bob");
@@ -602,8 +600,7 @@ mod tests {
             let id_array = batch
                 .batch
                 .column(0)
-                .as_any()
-                .downcast_ref::<Int32Array>()
+                .as_any().downcast_ref::<Int32Array>()
                 .unwrap();
             let expected_start_id = (batches_read * 3) as i32;
             assert_eq!(id_array.value(0), expected_start_id);

@@ -77,12 +77,10 @@ impl SedonaScalarKernel for STLineSubstring {
 
         // 2. Downcast them to Arrow Float64Arrays so they can be read by row index
         let start_floats = start_array
-            .as_any()
-            .downcast_ref::<arrow_array::Float64Array>()
+            .as_any().downcast_ref::<arrow_array::Float64Array>()
             .unwrap();
         let end_floats = end_array
-            .as_any()
-            .downcast_ref::<arrow_array::Float64Array>()
+            .as_any().downcast_ref::<arrow_array::Float64Array>()
             .unwrap();
 
         let mut start_floats_iter = start_floats.iter();

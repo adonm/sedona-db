@@ -78,7 +78,7 @@ impl GeoParquetFileOpenerMetrics {
     pub fn new(execution_plan_global_metrics: &ExecutionPlanMetricsSet) -> Self {
         let files_ranges_spatial_pruned = PruningMetrics::new();
         MetricBuilder::new(execution_plan_global_metrics)
-            .with_type(MetricType::SUMMARY)
+            .with_type(MetricType::Summary)
             .build(MetricValue::PruningMetrics {
                 name: "files_ranges_spatial_pruned".into(),
                 pruning_metrics: files_ranges_spatial_pruned.clone(),
@@ -86,7 +86,7 @@ impl GeoParquetFileOpenerMetrics {
 
         let row_groups_spatial_pruned = PruningMetrics::new();
         MetricBuilder::new(execution_plan_global_metrics)
-            .with_type(MetricType::SUMMARY)
+            .with_type(MetricType::Summary)
             .build(MetricValue::PruningMetrics {
                 name: "row_groups_spatial_pruned".into(),
                 pruning_metrics: row_groups_spatial_pruned.clone(),

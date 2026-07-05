@@ -116,10 +116,6 @@ impl FileSource for LasSource {
         ProjectionOpener::try_new(split_projection, las_opener, table_schema)
     }
 
-    fn as_any(&self) -> &dyn Any {
-        self
-    }
-
     fn table_schema(&self) -> &TableSchema {
         &self.table_schema
     }

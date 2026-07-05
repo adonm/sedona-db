@@ -704,8 +704,7 @@ mod tests {
             let array = batch
                 .batch
                 .column(0)
-                .as_any()
-                .downcast_ref::<Int32Array>()
+                .as_any().downcast_ref::<Int32Array>()
                 .unwrap();
             for i in 0..array.len() {
                 ids.push(array.value(i));
@@ -1052,14 +1051,12 @@ mod tests {
         // Check if the result geometry array is BinaryViewArray
         let geom_array = result.geom_array.geometry_array();
         assert!(geom_array
-            .as_any()
-            .downcast_ref::<BinaryViewArray>()
+            .as_any().downcast_ref::<BinaryViewArray>()
             .is_some());
 
         // Check values
         let view_array = geom_array
-            .as_any()
-            .downcast_ref::<BinaryViewArray>()
+            .as_any().downcast_ref::<BinaryViewArray>()
             .unwrap();
         assert_eq!(view_array.len(), 3);
         assert_eq!(view_array.value(0), wkbs1[0].as_slice());

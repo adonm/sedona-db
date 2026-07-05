@@ -670,8 +670,7 @@ mod tests {
             .invoke_raster_array_scalar(vec![Some(build_mixed_dim_raster())], "time")
             .unwrap();
         let arr = result
-            .as_any()
-            .downcast_ref::<arrow_array::Int64Array>()
+            .as_any().downcast_ref::<arrow_array::Int64Array>()
             .expect("Expected Int64Array");
         assert_eq!(arr.value(0), 3);
     }

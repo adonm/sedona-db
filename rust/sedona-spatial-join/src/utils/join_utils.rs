@@ -325,8 +325,7 @@ pub(crate) fn apply_join_filter_to_indices(
         let dist_array = arrow_array::Float64Array::from(distances.to_vec());
         let filtered = compute::filter(&dist_array, mask)?;
         let filtered = filtered
-            .as_any()
-            .downcast_ref::<arrow_array::Float64Array>()
+            .as_any().downcast_ref::<arrow_array::Float64Array>()
             .expect("filtered distance array should be Float64Array");
         Some(filtered.values().to_vec())
     } else {
@@ -1086,8 +1085,7 @@ mod tests {
                 assert_eq!(exprs.len(), expected_indices.len());
                 for (expr, expected_idx) in exprs.iter().zip(expected_indices.iter()) {
                     let col = expr
-                        .as_any()
-                        .downcast_ref::<Column>()
+                        .as_any().downcast_ref::<Column>()
                         .expect("expected Column physical expr");
                     assert_eq!(col.index(), *expected_idx);
                 }
@@ -1142,8 +1140,7 @@ mod tests {
 
     fn assert_is_column_expr(expr: &Arc<dyn PhysicalExpr>, name: &str, index: usize) {
         let col = expr
-            .as_any()
-            .downcast_ref::<Column>()
+            .as_any().downcast_ref::<Column>()
             .expect("expected Column");
         assert_eq!(col.name(), name);
         assert_eq!(col.index(), index);
@@ -1181,11 +1178,6 @@ mod tests {
         fn name(&self) -> &'static str {
             "PropertiesOnlyExec"
         }
-
-        fn as_any(&self) -> &dyn std::any::Any {
-            self
-        }
-
         fn schema(&self) -> SchemaRef {
             Arc::clone(&self.schema)
         }
@@ -1544,8 +1536,7 @@ mod tests {
         assert_eq!(left_proj.alias, "l1_out");
         let left_col = left_proj
             .expr
-            .as_any()
-            .downcast_ref::<Column>()
+            .as_any().downcast_ref::<Column>()
             .expect("expected Column");
         assert_eq!(left_col.name(), "l1");
         assert_eq!(left_col.index(), 1);
@@ -1555,8 +1546,7 @@ mod tests {
         assert_eq!(right_proj.alias, "r0_out");
         let right_col = right_proj
             .expr
-            .as_any()
-            .downcast_ref::<Column>()
+            .as_any().downcast_ref::<Column>()
             .expect("expected Column");
         assert_eq!(right_col.name(), "r0");
         assert_eq!(right_col.index(), 0);

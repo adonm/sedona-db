@@ -66,7 +66,6 @@ fn count_rows(reader: ZarrChunkReader) -> usize {
         let batch = batch.expect("batch read ok");
         let s = batch
             .column(0)
-            .as_any()
             .downcast_ref::<arrow_array::StructArray>()
             .expect("raster column is a StructArray");
         rows += RasterStructArray::try_new(s).unwrap().len();
